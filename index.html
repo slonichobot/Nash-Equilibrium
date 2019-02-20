@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <script src="ext/http_unpkg.com_jquery@3.3.1_dist_jquery.js"></script>
+    <script src="ext/http_d3js.org_d3.v4.js"></script>
+    <script src="ext/http_d3js.org_d3-polygon.v1.js"></script>
+    <script src="ext/http_unpkg.com_lodash@4.17.11_lodash.js"></script>
+    <script src="ext/http_unpkg.com_mathjs@5.4.1_dist_math.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <title>Nash Equilibrium</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="body">
+    <h1>Nash Equilibrium</h1>
+    <form>
+        <div id="input">
+            <label for="matrixInput">Matrix: </label><textarea id="matrixInput" cols="30" rows="10">
+{
+    "name": "2x3 game",
+    "A": [
+      [1, 3, 0],
+      [0, 0, 2],
+      [2, 1, 1]
+    ],
+    "B": [
+      [2, 1, 0],
+      [1, 3, 1],
+      [0, 0, 3]
+    ]
+}
+        </textarea></div>
+        <div id="games">
+            <label>Example games:</label>
+            <div class="gameBlock"></div>
+        </div>
+        <div class="submit"><button type="button" class="submitBtn">Find Nash Equilibria</button></div>
+    </form>
+
+    <h2 id="gameName"></h2>
+
+    <label>Best response polyhedron:</label>
+    <div class="matrix">
+        <div id="mxA" class="mj"></div>
+        <div id="mxB" class="mj"></div>
+    </div>
+
+    <div id="disp">
+        <svg id="A" class="polyhedron"></svg>
+        <svg id="B" class="polyhedron"></svg>
+    </div>
+
+    <h2>Nash Equilibria</h2>
+    <p>Following table shows all (mixed) <em>Nash equilibria</em> of given game found by the <em>vertex enumeration</em> algorithm. Mixed strategies and expected payoffs are listed for both player's for each found equilibrium. Each nash equilibrium is distinguished by a certain color. By the famous <em>Nash's theorem</em> (1950) each game has at least one such equilibrium.</p>
+    <table id="nash"></table>
+
+    <h2>Lemke-Hawson algorithm</h2>
+    <p>Following table shows the steps of <em>Lemke-Hawson</em> algorithm for each possible starting configuration. The state of the algorithm is determined by a pair of vertices, one from each polyhedron.
+        The algorithm starts in the pair of vertices <strong>(0,0)</strong> (which is fully labeled) and drops any of the labels. This is equivalent to giving the corresponding <em>pure strategy</em> a positive probability.
+        The drop of a label can be interpreted as a traverse through an edge of corresponding polyhedron and the dropped label corresponds to the inequality which seized to be bounding.
+        When arriving to a new vertex, a new bounding inequality appeared, so a new label was discovered.
+    </p>
+    <table id="lemkeHawson"></table>
+
+</div>
+<script src="js/3d.d3.js"></script>
+<script src="js/games.js"></script>
+<script src="js/helper.js"></script>
+<script src="js/drawing.js"></script>
+<script src="js/polytope.js"></script>
+<script src="js/nash.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/main.js"></script>
+</body>
